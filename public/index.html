@@ -39,3 +39,24 @@
       margin-top: 10px;
       font-weight: bold;
     }
+     </style>
+</head>
+<body>
+  <h1>🔑 Generator API Key</h1>
+  <button id="btnGenerate">Buat API Key</button>
+  <br><br>
+  <textarea id="apikey" readonly placeholder="API Key kamu muncul di sini..."></textarea>
+
+  <br><br>
+  <h2>🔍 Validasi API Key</h2>
+  <input id="inputKey" placeholder="Masukkan API Key untuk cek" style="width: 60%; padding: 10px; border-radius: 8px; border: none;">
+  <br><br>
+  <button id="btnValidate">Cek Validasi</button>
+  <div id="status"></div>
+
+  <script>
+    document.getElementById('btnGenerate').addEventListener('click', async () => {
+      const res = await fetch('/generate-apikey', { method: 'POST' });
+      const data = await res.json();
+      document.getElementById('apikey').value = data.apiKey;
+    });
