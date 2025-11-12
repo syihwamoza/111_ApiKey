@@ -60,3 +60,24 @@
       const data = await res.json();
       document.getElementById('apikey').value = data.apiKey;
     });
+     document.getElementById('btnValidate').addEventListener('click', async () => {
+      const key = document.getElementById('inputKey').value.trim();
+      const res = await fetch('/validate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ key })
+      });
+      const data = await res.json();
+      const status = document.getElementById('status');
+      if (data.valid) {
+        status.textContent = '✅ API Key valid!';
+        status.style.color = '#00ff9d';
+      } else {
+        status.textContent = '❌ API Key tidak valid.';
+        status.style.color = '#ff7070';
+      }
+    });
+  </script>
+</body>
+</html>
+
