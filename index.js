@@ -44,3 +44,20 @@ app.post('/generate-apikey', (req, res) => {
     res.json({ apiKey: newKey });
   });
 });
+// Endpoint validasi API key
+app.post('/validate', (req, res) => {
+  const { key } = req.body;
+  const sql = 'SELECT * FROM api_keys WHERE api_key = ?';
+  db.query(sql, [key], (err, results) => {
+    if (err) {
+      console.error('❌ Gagal validasi:', err.message);
+      return res.status(500).json({ valid: false });
+    }
+    res.json({ valid: results.length > 0 });
+  });
+});
+
+// Jalankan server
+app.listen(port, () => {
+  console.log(`🚀 Server jalan di http://localhost:${port}`);
+});
